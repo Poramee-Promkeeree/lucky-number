@@ -34,6 +34,11 @@ class ClientThread(threading.Thread):
 
             if guess == answer:
                 self.conn.sendall('Your answer is correct! You win!'.encode())
+            if guess < answer:
+                self.conn.sendall(f"The answer is greather than your{guess}.".encode())
+            else:
+                self.conn.sendall(f"The answer is less than your {guess}.".encode())
+        self.conn.close()
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
