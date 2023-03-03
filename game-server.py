@@ -24,6 +24,17 @@ class ClientThread(threading.Thread):
         # generate a random number between 1 and 100 for this client
         answer = random.randint(1, 100)
 
+        for i in range(10):
+            data = self.conn.recv(1024).decode()
+            guess = int(data)
+
+            if guess < 0:
+                self.conn.sendall(f'Ok, you want to give up. The answer is {answer}'.encode())
+                break
+
+            if guess == answer:
+                self.conn.sendall('Your answer is correct! You win!'.encode())
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
