@@ -15,7 +15,7 @@ class ClientThread(threading.Thread):
         self.conn = conn
         self.addr = addr
 
-        def run(self):
+    def run(self):
         print('Connected by', self.addr)
 
         # send the answer range to the client
